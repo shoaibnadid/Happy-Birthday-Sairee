@@ -1,0 +1,465 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Happy Birthday 🎂</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: "Poppins", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, #ffb6d9 0%, transparent 35%),
+        linear-gradient(135deg, #12001f, #32004f, #70005f);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Main card */
+    .card {
+      width: 90%;
+      max-width: 650px;
+      padding: 45px 25px;
+      border-radius: 30px;
+
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+
+      box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.4),
+        inset 0 0 30px rgba(255, 255, 255, 0.05);
+
+      z-index: 10;
+      animation: cardAppear 1.5s ease;
+    }
+
+    @keyframes cardAppear {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .cake {
+      font-size: 75px;
+      animation: bounce 1.5s infinite alternate;
+      filter: drop-shadow(0 0 15px #ff77b7);
+    }
+
+    @keyframes bounce {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-12px);
+      }
+    }
+
+    .small-title {
+      margin-top: 10px;
+      font-size: 18px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #ffd6ec;
+    }
+
+    h1 {
+      margin-top: 10px;
+      font-size: clamp(42px, 10vw, 78px);
+      line-height: 1.05;
+
+      background: linear-gradient(
+        90deg,
+        #fff,
+        #ff9ed2,
+        #ffd36e,
+        #fff
+      );
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      background-size: 300%;
+      animation: shine 4s linear infinite;
+    }
+
+    @keyframes shine {
+      0% {
+        background-position: 0%;
+      }
+
+      100% {
+        background-position: 300%;
+      }
+    }
+
+    .name {
+      font-size: clamp(30px, 7vw, 55px);
+      font-weight: 700;
+      color: #ffb6dc;
+      text-shadow:
+        0 0 10px #ff4fa3,
+        0 0 30px #ff4fa3;
+      margin: 10px 0 20px;
+    }
+
+    .message {
+      font-size: clamp(16px, 4vw, 20px);
+      line-height: 1.7;
+      color: #fff4fa;
+      max-width: 520px;
+      margin: auto;
+    }
+
+    .heart {
+      color: #ff5fa8;
+      animation: heartBeat 1.2s infinite;
+      display: inline-block;
+    }
+
+    @keyframes heartBeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.3);
+      }
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 14px 30px;
+
+      border: none;
+      border-radius: 50px;
+
+      background: linear-gradient(135deg, #ff4fa3, #ff8ac6);
+      color: white;
+
+      font-size: 17px;
+      font-weight: bold;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 8px 25px rgba(255, 79, 163, 0.45);
+
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.08);
+      box-shadow:
+        0 10px 35px rgba(255, 79, 163, 0.7);
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    #secret {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: 0.8s ease;
+      margin-top: 0;
+    }
+
+    #secret.show {
+      max-height: 150px;
+      opacity: 1;
+      margin-top: 25px;
+    }
+
+    .secret-text {
+      color: #ffe2f1;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 18px;
+      top: -30px;
+      z-index: 20;
+      pointer-events: none;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      0% {
+        transform:
+          translateY(-30px)
+          rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform:
+          translateY(110vh)
+          rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* Floating hearts */
+    .floating-heart {
+      position: fixed;
+      bottom: -50px;
+      font-size: 25px;
+      opacity: 0.7;
+      pointer-events: none;
+      animation: floatUp linear forwards;
+      z-index: 2;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 0.8;
+      }
+
+      to {
+        transform:
+          translateY(-110vh)
+          rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .card {
+        padding: 35px 20px;
+        border-radius: 25px;
+      }
+
+      .cake {
+        font-size: 60px;
+      }
+
+      .small-title {
+        font-size: 14px;
+        letter-spacing: 3px;
+      }
+
+      .message {
+        font-size: 15px;
+        line-height: 1.6;
+      }
+
+      button {
+        width: 85%;
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <div class="cake">🎂</div>
+
+    <div class="small-title">
+      A Special Day For A Special Person
+    </div>
+
+    <h1>Happy Birthday</h1>
+
+    <!-- Change the name here -->
+    <div class="name">
+      Sairee 💖
+    </div>
+
+    <p class="message">
+      Wishing you a beautiful birthday filled with
+      happiness, laughter, love and countless beautiful
+      moments.
+      <br><br>
+
+      May every dream in your heart come true.
+      Keep smiling and keep shining!
+      <span class="heart">♥</span>
+    </p>
+
+    <button onclick="showSurprise()">
+      🎁 Open Your Surprise
+    </button>
+
+    <div id="secret">
+      <p class="secret-text">
+        You are one of the most beautiful parts of my life.
+        <br>
+        Happy Birthday, my special one! ❤️
+        <br>
+        May this year bring you endless happiness. ✨
+      </p>
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* =========================
+       CONFETTI
+    ========================= */
+
+    const confettiColors = [
+      "#ff4fa3",
+      "#ffd166",
+      "#06d6a0",
+      "#4cc9f0",
+      "#ffffff",
+      "#c77dff"
+    ];
+
+    function createConfetti() {
+
+      const confetti = document.createElement("div");
+
+      confetti.classList.add("confetti");
+
+      confetti.style.left =
+        Math.random() * 100 + "vw";
+
+      confetti.style.background =
+        confettiColors[
+          Math.floor(
+            Math.random() * confettiColors.length
+          )
+        ];
+
+      confetti.style.width =
+        Math.random() * 8 + 6 + "px";
+
+      confetti.style.height =
+        Math.random() * 15 + 8 + "px";
+
+      confetti.style.animationDuration =
+        Math.random() * 3 + 3 + "s";
+
+      confetti.style.transform =
+        `rotate(${Math.random() * 360}deg)`;
+
+      document.body.appendChild(confetti);
+
+      setTimeout(() => {
+        confetti.remove();
+      }, 6500);
+    }
+
+
+    /* Initial celebration */
+
+    for (let i = 0; i < 120; i++) {
+      setTimeout(() => {
+        createConfetti();
+      }, i * 25);
+    }
+
+
+    /* Continuous confetti */
+
+    setInterval(() => {
+      createConfetti();
+    }, 180);
+
+
+    /* =========================
+       SURPRISE BUTTON
+    ========================= */
+
+    function showSurprise() {
+
+      document
+        .getElementById("secret")
+        .classList.toggle("show");
+
+      /* Extra celebration */
+
+      for (let i = 0; i < 100; i++) {
+
+        setTimeout(() => {
+          createConfetti();
+        }, i * 15);
+
+      }
+
+    }
+
+
+    /* =========================
+       FLOATING HEARTS
+    ========================= */
+
+    const hearts = ["❤️", "💖", "💕", "💗", "💓"];
+
+    function createHeart() {
+
+      const heart =
+        document.createElement("div");
+
+      heart.classList.add("floating-heart");
+
+      heart.innerHTML =
+        hearts[
+          Math.floor(
+            Math.random() * hearts.length
+          )
+        ];
+
+      heart.style.left =
+        Math.random() * 100 + "vw";
+
+      heart.style.fontSize =
+        Math.random() * 20 + 15 + "px";
+
+      heart.style.animationDuration =
+        Math.random() * 5 + 5 + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 10000);
+    }
+
+
+    setInterval(createHeart, 900);
+
+  </script>
+
+</body>
+</html>
+```
